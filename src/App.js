@@ -1,7 +1,8 @@
 import React from 'react'
+import HomeScreen from './Screens/HomeScreen'
 
 const App = () => {
-  return <h2>Test</h2>
+  return <HomeScreen />
 }
 
 export default App
