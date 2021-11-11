@@ -1,9 +1,25 @@
 import * as api from '../apiCall/apiCall'
 
+function compare (a, b) {
+  // Use toUpperCase() to ignore character casing
+  const bandA = a.name.toUpperCase()
+
+  const bandB = b.name.toUpperCase()
+
+  let comparison = 0
+  if (bandA > bandB) {
+    comparison = 1
+  } else if (bandA < bandB) {
+    comparison = -1
+  }
+  return comparison
+}
+
 export const getCommunities = () => async dispatch => {
   try {
     dispatch({ type: 'GET_COMMUNITY_REQUEST' })
-    const { data: communities } = await api.getCommunities()
+    let { data: communities } = await api.getCommunities()
+    communities = communities.sort(compare)
     const { data: homes } = await api.getHomes()
 
     communities.forEach(function (community) {
