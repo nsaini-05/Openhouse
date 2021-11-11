@@ -6,8 +6,6 @@ export const getCommunities = () => async dispatch => {
     const { data: communities } = await api.getCommunities()
     const { data: homes } = await api.getHomes()
 
-    console.log(homes)
-
     communities.forEach(function (community) {
       let total = 0
       let numOfHomes = 0
@@ -18,12 +16,8 @@ export const getCommunities = () => async dispatch => {
           numOfHomes += 1
         }
       })
-
-      // community.averagePrice = Number(total / numOfHomes).toFixed(2)
-
-      console.log(`Community ID : ${community.id} total : ${total}`)
-
-      // console.log(community)
+      let averagePrice = Number(total / numOfHomes).toFixed(2)
+      community.averagePrice = isNaN(averagePrice) ? 0 : averagePrice
     })
 
     dispatch({
